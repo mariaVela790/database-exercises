@@ -33,7 +33,7 @@ where hire_date like '199%';
 # select * from employees
 # where birth_date like '%-12-25';
 select datediff(curdate(), hire_date) from employees
-where birth_date like '%12-25' && hire_date like '199%-%-%'
+where birth_date like '%12-25' && hire_date like '199%'
 order by birth_date, hire_date desc;
 
 select * from employees
