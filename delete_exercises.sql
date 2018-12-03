@@ -1,4 +1,7 @@
 use codeup_test_db;
+select * from albums
+where release_date > 1992;
+
 -- albums released after 1991
 -- select 'Albums released after 1992' as 'caption';
 delete from albums
