@@ -1,5 +1,5 @@
 USE codeup_test_db;
--- select "Hello World";
+--select "Hello World";
 
 select "" as "The name of all albums by Pink Floyd";
 SELECT name FROM albums WHERE artist="Pink Floyd";
