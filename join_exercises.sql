@@ -100,7 +100,7 @@
 # //////////////////////////////
 use employees;
 
--- Using the example in the Associative Table Joins section as a guide, write a query that shows
+-- 2. Using the example in the Associative Table Joins section as a guide, write a query that shows
 -- each department along with the name of the current manager for that department.
 select d.dept_name as 'Department Name', concat(e.first_name, ' ', e.last_name) as 'Department Manager'
 from departments as d
@@ -111,7 +111,7 @@ on e.emp_no = dm.emp_no
 where dm.to_date > now()
 order by d.dept_name;
 
--- find the name of all departments currently managed by women
+-- 3. find the name of all departments currently managed by women
 select d.dept_name as 'Department Name', concat(e.first_name, ' ', e.last_name) as 'Manager Name'
 from employees as e
 join dept_manager as dm
@@ -121,7 +121,7 @@ on d.dept_no = dm.dept_no
 where dm.to_date > now() and e.gender = 'F'
 order by d.dept_name;
 
-# NUMBER 4
+-- 4. Find the current titles of employees currently working in the Customer Service department.
 select t.title as 'Title', count(*) as 'Count'
 from titles as t
 join employees as e
@@ -133,10 +133,10 @@ on d.dept_no = de.dept_no
 where t.to_date > now() and d.dept_name = 'Customer Service'
 group by t.title;
 
-# NUMBER 5
+-- 5. Find the current salary of all current managers.
 select d.dept_name as 'Department Name',
-       concat(e.first_name, ' ', e.last_name) as 'Name',
-       s.salary as 'Salary'
+ concat(e.first_name, ' ', e.last_name) as 'Name',
+ s.salary as 'Salary'
 from departments as d
 join dept_manager as dm
 on dm.dept_no = d.dept_no
@@ -147,9 +147,10 @@ on s.emp_no = e.emp_no
 where dm.to_date > now() and s.to_date > now()
 order by d.dept_name;
 
+-- bonus
 select concat(e.first_name, ' ', e.last_name) as 'Employee Name',
-d.dept_name as 'Department Name',
-concat(e2.first_name, ' ', e2.last_name) as 'Manager Name'
+  d.dept_name as 'Department Name',
+  concat(e2.first_name, ' ', e2.last_name) as 'Manager Name'
 from employees as e
 join dept_emp as de
 on de.emp_no = e.emp_no
@@ -160,4 +161,15 @@ on dm.dept_no = d.dept_no
 join employees as e2
 on e2.emp_no = dm.emp_no
 where dm.to_date > now() and de.to_date > now()
-order by d.dept_name, e.last_name;
+order by d.dept_name;
+
+select first_name, last_name
+from employees
+where emp_no in (
+  select emp_no
+  from dept_emp
+  join departments as
+      d on dept_emp.dept_no = d.dept_no
+  where to_date > now() and d.dept_name = 'Customer Service'
+);
+-- display the name and the department the person works in
