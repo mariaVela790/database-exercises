@@ -64,8 +64,9 @@ where dept_no in (
     select dept_no from dept_manager
     where emp_no in(
         select emp_no from employees
-        where gender = 'F' and to_date > now()
+        where gender = 'F'
         )
+      and to_date > now()
     );
 
 select first_name, last_name
